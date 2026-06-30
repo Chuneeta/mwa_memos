@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+
+\title{Calibration using autocorrelated visibilities with MWA}
+\author{Ridhima Nunhokee}
+\date{January 2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+This memorandum explains the role of autocorrelated visibilities in radio interferometry and evaluates their use as a scaling mechanism during calibration of interferometric data, particularly in the context of Murchison Widefield Array (MWA) processing workflows.\\
+
+
+In radio interferometry, observed data consist of visibilities, which are complex correlations between antenna signals:
+\begin{itemize}
+\item Cross-correlations: between different antennas $i ≠ j$\\
+\item Autocorrelations: correlation of a signal with itself $i = j$
+\end{itemize}
+
+
+While cross-correlations encode spatial information about the sky, autocorrelations primarily measure total received power, including:
+\begin{enumerate}
+    \item sky brightness temperature
+    \item receiver noise
+    \item instrumental systematics
+\end{enumerate}
+Autocorrelations are often excluded from imaging pipelines due to their susceptibility to noise and systematics. However, they provide valuable information for amplitude scaling and calibration.
+
+\section{Autocorrelated Visibilities}
+An autocorrelation visibility can be expressed as:
+\begin{equation}
+V_{ii}(\nu) \approx |g_i(\nu)|^2 \cdot (T_{\text{sky}} + T_{\text{rec}})
+\end{equation}
+
+where $g_i(\nu)$ is the  complex gain of antenna $i$, $T_{\text{sky}}$ is the sky temperature and $T_{\text{rec}}$ refers to instrumental noise
+
+
+
+\section{Scaling Autocorrelations}
+Autocorrelations can be used to normalise or scale gain solutions derived from cross-correlations. This is particularly useful when:
+
+Absolute flux calibration is uncertain
+Gain amplitudes drift over time or frequency
+Bandpass solutions require stabilisation
+Common approach:
+Compute autocorrelation power per antenna
+Derive a scaling factor:
+\begin{equation}
+S_i(\nu) \propto \sqrt{V_{ii}(\nu)}
+\end{equation}
+Apply scaling to cross-correlation gains:
+\begin{equation}
+g_i^{\text{scaled}}(\nu) = \frac{g_i(\nu)}{S_i(\nu)}
+\end{equation}
+
+This ensures consistency between measured total power (autocorrelations) and interferometric amplitudes (cross-correlation)
+
+\section{Application in MWA Calibration Pipelines}
+
+\section{Conclusion}
+Autocorrelated visibilities provide a valuable but imperfect tool for scaling calibration solutions in radio interferometry. When used carefully, they enhance amplitude stability and offer independent constraints on system behaviour. However, due to their sensitivity to noise and systematics, they should be used in conjunction with cross-correlation-based calibration methods rather than as a standalone solution.
+
+\end{document}
+
